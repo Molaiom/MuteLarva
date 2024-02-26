@@ -23,26 +23,32 @@ namespace Mute_Larva
         public const string PluginAuthor = "Molaiom";
         public const string PluginName = "Mute_Larva";
         public const string PluginVersion = "0.1";
+        private readonly uint[] larvaSoundId = 
+            { 2621183947, 3730906858, 3362763155, 2639308470, 4262874917, 828559811, 2231265675, 3568098837, 2451117845, 1646746355, 2824450583 };
 
         public void Awake()
         {
             Log.Init(Logger);
-
-            On.EntityStates.AcidLarva.SpawnState.ctor += (orig, self) =>
-            {
-                Log.Info($"Larva spawned at {self.transform.position}, destroying it!");
-                orig(self);
-                self.gameObject.SetActive(false);
-            };
+            On.RoR2.Util.PlaySound_string_GameObject += OnSoundPlayed;
         }
 
-        private void Update()
+        private uint OnSoundPlayed(On.RoR2.Util.orig_PlaySound_string_GameObject orig, string soundString, GameObject gameObject)
         {
-            if (Input.GetKeyDown(KeyCode.F2))
+            try
             {
-                Transform transform = PlayerCharacterMasterController.instances[0].master.GetBodyObject().transform;
-
-                Log.Info($"Player pressed F2. Player is at {transform.position}");
+                for (int i = 0; i < larvaSoundId.Length; i++)
+                {
+                    if (soundString.Equals(larvaSoundId[i].ToString()))
+                    {
+                        Log.Info($"Larva sound detected!, ID[{larvaSoundId[i]}]");
+                        AkSoundEngine.StopPlayingID(larvaSoundId[i]);
+                        break;
+                    }
+                }
+            }
+            finally
+            {
+                throw null;
             }
         }
     }
