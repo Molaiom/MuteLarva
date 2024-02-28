@@ -1,8 +1,8 @@
 ﻿{
-	"name": "Mute Larva",
+	"name": "Mute_Larva",
 	"version_number": "1.0.0",
 	"website_url": "https://github.com/Molaiom/MuteLarva",
-	"description": "A mod for Risk of Rain 2 that mutes the putrid sound of larvas.",
+	"description": "A mod for Risk of Rain 2 that mutes the putrid sound of larvas. Note that the void craddle bugs use the same sounds as larvas, so they are also muted.",
 	"dependencies": [
 		"bbepis-BepInExPack-5.4.2108",
 		"RiskofThunder-HookGenPatcher-1.2.3",
